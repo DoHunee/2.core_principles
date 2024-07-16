@@ -6,6 +6,13 @@ import hello.core.member.MemberService;
 import hello.core.member.MemberServiceImpl;
 
 
+/* 
+어플리케이션 로직으로 테스트 하는법!
+=> 좋은 방법이 아니다!
+=> JUnit Test를 사용하자!
+*/
+
+//회원가입 및 조회
 public class MemberApp {
   
   public static void main(String[] args) {
