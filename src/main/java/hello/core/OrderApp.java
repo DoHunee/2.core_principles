@@ -30,7 +30,7 @@ public class OrderApp {
     Member member = new Member(memberId, "장도훈", Grade.VIP);
     memberService.join(member);
 
-    Order order = orderService.createOrder(memberId, "햇반", 10000);
+    Order order = orderService.createOrder(memberId, "햇반", 20000);
 
     System.out.println("주문 금액 : " + order);
     System.out.println("할인 적용된 금액 : " + order.calculatePrice());
