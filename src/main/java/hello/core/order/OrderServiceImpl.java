@@ -2,6 +2,7 @@ package hello.core.order;
 
 import hello.core.discount.DiscountPolicy;
 import hello.core.discount.FixDiscountPolicy;
+import hello.core.discount.RateDiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
 import hello.core.member.MemoryMemberRepository;
@@ -19,13 +20,15 @@ OrderServiceImpl에 있는 FixDiscountPolicy 타고 들어가서 수정하면 �
  */
 
  public class OrderServiceImpl implements OrderService {
+  
 
-
-  // 회원 저장소  구체적 구현체로 MemoryMemberRepository 사용
+  // 회원 저장소 인터페이스의 구체적 구현체로 MemoryMemberRepository 사용
   private final MemberRepository memberRepository = new MemoryMemberRepository();
 
-  // 할인 정책  구체적 구현체로 FixDiscountPolicy 사용
-  private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+  // 할인 정책  인터페이스의 구체적 구현체로 FixDiscountPolicy 사용
+  // private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
+  private final DiscountPolicy discountPolicy = new RateDiscountPolicy(); 
+
 
   @Override
   public Order createOrder(Long memberId, String itemName, int itemPrice) {
