@@ -3,10 +3,10 @@ package hello.core;
 import hello.core.member.Grade;
 import hello.core.member.Member;
 import hello.core.member.MemberService;
-import hello.core.member.MemberServiceImpl;
+// import hello.core.member.MemberServiceImpl;
 import hello.core.order.Order;
 import hello.core.order.OrderService;
-import hello.core.order.OrderServiceImpl;
+// import hello.core.order.OrderServiceImpl;
 
 /* 
 어플리케이션 로직으로 테스트 하는법!
@@ -18,8 +18,13 @@ import hello.core.order.OrderServiceImpl;
 public class OrderApp {
   
   public static void main(String[] args) {
-    MemberService memberService = new MemberServiceImpl();
-    OrderService orderService = new OrderServiceImpl();
+
+    AppConfig appConfig = new AppConfig();
+    MemberService memberService = appConfig.memberService();
+    OrderService orderService = appConfig.orderService();
+    
+    // MemberService memberService = new MemberServiceImpl(null);
+    // OrderService orderService = new OrderServiceImpl(null,null);
 
     Long memberId = 1L;
     Member member = new Member(memberId, "장도훈", Grade.VIP);
