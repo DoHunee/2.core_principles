@@ -9,8 +9,11 @@ import hello.core.AppConfig;
 
 
 class ApplicationContextInfoTest {
+  
+  // AppConfig 사용하여 설정 클래스를 만들어서 스프링 컨테이너 생성
   AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
 
+  
   @Test
   @DisplayName("모든 빈 출력하기")
   void findAllBean() {

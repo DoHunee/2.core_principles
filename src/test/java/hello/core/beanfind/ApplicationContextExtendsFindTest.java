@@ -14,7 +14,8 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class ApplicationContextExtendsFindTest {
-
+  
+  // TestConfig 사용하여 설정 클래스를 만들어서 스프링 컨테이너 생성
   AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(TestConfig.class);
 
   @Test
@@ -22,15 +23,15 @@ class ApplicationContextExtendsFindTest {
   void findBeanByParentTypeDuplicate() {
     // DiscountPolicy bean = ac.getBean(DiscountPolicy.class);
 
-    // DiscountPolicy 타입의 빈이 둘 이상 있으므로 NoUniqueBeanDefinitionException 예외가 발생해야 한다
     // 고의적으로 발생시킨 에러!!
+    // DiscountPolicy 타입의 빈이 둘 이상 있으므로 NoUniqueBeanDefinitionException 예외가 발생해야 한다
     assertThrows(NoUniqueBeanDefinitionException.class, () -> ac.getBean(DiscountPolicy.class));
   }
 
   @Test
   @DisplayName("부모 타입으로 조회시, 자식이 둘 이상 있으면, 빈 이름을 지정하면 된다")
   void findBeanByParentTypeBeanName() {
-    // 빈 이름을 지정하여 조회하면 정상적으로 빈을 가져올 수 있다
+    // 빈 이름을 rateDiscountPolicy로 지정하여 조회하면 정상적으로 빈을 가져올 수 있다
     DiscountPolicy rateDiscountPolicy = ac.getBean("rateDiscountPolicy",DiscountPolicy.class);
     assertThat(rateDiscountPolicy).isInstanceOf(RateDiscountPolicy.class);
   }

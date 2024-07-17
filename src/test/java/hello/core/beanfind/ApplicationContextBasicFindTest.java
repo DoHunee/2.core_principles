@@ -11,6 +11,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import static org.assertj.core.api.Assertions.*;
 
 class ApplicationContextBasicFindTest {
+  
+  // AppConfig 사용하여 설정 클래스를 만들어서 스프링 컨테이너 생성
   AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
 
   @Test

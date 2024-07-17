@@ -29,6 +29,7 @@ public class MemberApp {
 
     // 3.스프링빈을 사용해서 의존성 주입
     // ApplicationContext를 스프링 컨테이너라고 한다!!
+    @SuppressWarnings("resource")
     ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
     MemberService memberService =  applicationContext.getBean("memberService",MemberService.class);
 

@@ -18,7 +18,7 @@ import java.util.Map;
 
 public class ApplicationContextSameBeanFindTest {
 
-  // 테스트에 사용할 스프링 컨테이너 생성, SameBeanConfig 설정 클래스 사용
+  // SameBeanConfig 사용하여 설정 클래스를 만들어서 스프링 컨테이너 생성
   AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(SameBeanConfig.class);
 
   @Test

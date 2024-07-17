@@ -32,6 +32,7 @@ public class OrderApp {
     // OrderService orderService = appConfig.orderService();
 
     // 3.스프링빈을 사용해서 의존성 주입
+    @SuppressWarnings("resource")
     ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
     MemberService memberService = applicationContext.getBean("memberService", MemberService.class);
     OrderService orderService = applicationContext.getBean("orderService",OrderService.class);
