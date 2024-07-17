@@ -25,25 +25,46 @@ OrderServiceImpl => [MemoryMemberRepository , FixDiscountPolicy]
 @Configuration
 public class AppConfig {
   
+  /*
+  ConfigurationSingletonTest.java Test 실행시
+  @Bean memberService()  -> new MemoryMemberRepository()
+  @Bean orderService()   -> new MemoryMemberRepository()
+
+  call AppConfig.memberService()
+  call AppConfig.memberRepository()
+  call AppConfig.memberRepository()
+  call AppConfig.orderService()
+  call AppConfig.memberRepository()
+  => 이런식으로 memberRepository가 3번 호출될거라고 예측했는데
+
+  call AppConfig.memberService()
+  call AppConfig.memberRepository()
+  call AppConfig.orderService()
+  => 근데 이렇게 3번만 호출이 됌!
+  => 이렇게 스프링은 싱글톤을 보장해준다!
+   */
+
   @Bean
   public MemberService memberService() {
+    System.out.println("AppConfig.memberService 호출");
     return new MemberServiceImpl(memberRepository());
   }
 
   @Bean
   public OrderService orderService() {
-    return new OrderServiceImpl(
-        memberRepository(),
-        discountPolicy());
+    System.out.println("AppConfig.orderService 호출");
+    return new OrderServiceImpl(memberRepository(),discountPolicy());
   }
 
   @Bean
   public MemberRepository memberRepository() {
+    System.out.println("AppConfig.MemoryMemberRepository 호출");
     return new MemoryMemberRepository();
   }
 
   @Bean
   public DiscountPolicy discountPolicy() {
+    // return new FixDiscountPolicy();
     return new RateDiscountPolicy();
   }
 }

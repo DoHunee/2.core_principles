@@ -40,4 +40,12 @@ OrderService는 Order를 생성하는 기능만을 제공하고
     return new Order(memberId, itemName, itemPrice, discountPrice); // 주문 객체 생성 후 반환
   }
 
+  
+  // 테스트 용도
+  public MemberRepository getMemberRepository() {
+    return memberRepository;
+  }
+
+ 
+
 }
