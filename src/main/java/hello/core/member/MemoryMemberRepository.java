@@ -3,7 +3,10 @@ package hello.core.member;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.springframework.stereotype.Component;
+
 // 메모리 회원 저장소 구현체
+@Component
 public class MemoryMemberRepository implements MemberRepository {
 
    // Member 객체를 저장하는 Map, 회원 ID를 키로 사용한다.
