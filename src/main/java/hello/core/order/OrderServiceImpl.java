@@ -26,15 +26,29 @@ OrderService는 Order를 생성하는 기능만을 제공하고
   private final DiscountPolicy discountPolicy = new RateDiscountPolicy(); 
 */
 
-  private final MemberRepository memberRepository;
-  private final DiscountPolicy discountPolicy;
+  private  MemberRepository memberRepository;
+  private  DiscountPolicy discountPolicy;
    
-  @Autowired 
-  public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+
+  @Autowired
+  public void setMemberRepository(MemberRepository memberRepository) {
+    System.out.println("memberRepository setter = " + memberRepository);
     this.memberRepository = memberRepository;
+  }
+  
+  @Autowired
+  public void setDiscountPolicy(DiscountPolicy discountPolicy) {
+    System.out.println("discountPolicy setter = " + discountPolicy);
     this.discountPolicy = discountPolicy;
   }
 
+
+  // public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+  //   System.out.println("1. OrderServiceImpl.OrderServiceImpl()");
+
+  //   this.memberRepository = memberRepository;
+  //   this.discountPolicy = discountPolicy;
+  // }
 
   @Override
   public Order createOrder(Long memberId, String itemName, int itemPrice) {
