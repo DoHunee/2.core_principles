@@ -21,33 +21,25 @@ OrderService는 Order를 생성하는 기능만을 제공하고
 /* 
   회원 저장소 인터페이스의 구체적 구현체로 MemoryMemberRepository 사용
   private final MemberRepository memberRepository = new MemoryMemberRepository();
+  
   할인 정책  인터페이스의 구체적 구현체로 FixDiscountPolicy 사용
   private final DiscountPolicy discountPolicy = new FixDiscountPolicy();
   private final DiscountPolicy discountPolicy = new RateDiscountPolicy(); 
 */
 
-  private   MemberRepository memberRepository;
-  private   DiscountPolicy discountPolicy;
+  // 생성자 주입을 사용하면 이렇게 final 변수를 지정하고 사용할 수 있다 
+  private final MemberRepository memberRepository;
+  private final DiscountPolicy discountPolicy;
   
 
-
+  // 생성자 주입!
   public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
     // System.out.println("1. OrderServiceImpl.OrderServiceImpl()");
     this.memberRepository = memberRepository;
     this.discountPolicy = discountPolicy;
   }
 
-  @Autowired
-  public void init(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-  this.memberRepository = memberRepository;
-  this.discountPolicy = discountPolicy;
-  }
-
-
-  @Autowired
-  public void setMemberRepository(MemberRepository memberRepository) {
-    this.memberRepository = memberRepository;
-  }
+  
 
   @Override
   public Order createOrder(Long memberId, String itemName, int itemPrice) {
