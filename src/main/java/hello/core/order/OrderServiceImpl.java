@@ -1,11 +1,12 @@
 package hello.core.order;
 
+// import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
-import lombok.RequiredArgsConstructor;
+// import lombok.RequiredArgsConstructor;
 
 // 주문 서비스 구현체!
 /*
@@ -16,7 +17,7 @@ OrderService는 Order를 생성하는 기능만을 제공하고
  */
 
  @Component
- @RequiredArgsConstructor //final이 붙은 변수를 보고 생성자를 자동으로 만들어준다!
+ // @RequiredArgsConstructor //final이 붙은 변수를 보고 생성자를 자동으로 만들어준다!
  public class OrderServiceImpl implements OrderService {
   
 /* 
@@ -34,12 +35,12 @@ OrderService는 Order를 생성하는 기능만을 제공하고
   
 
   // 생성자 주입!
-  // @RequiredArgsConstructor 가 있으면  final 변수를 보고 여기 부분을 만들어 주는거다!
-  // public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
-  //   // System.out.println("1. OrderServiceImpl.OrderServiceImpl()");
-  //   this.memberRepository = memberRepository;
-  //   this.discountPolicy = discountPolicy;
-  // }
+  // Lombok의 @RequiredArgsConstructor 가 있으면  final 변수를 보고 여기 부분을 만들어 주는거다!
+  public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+    // System.out.println("1. OrderServiceImpl.OrderServiceImpl()");
+    this.memberRepository = memberRepository;
+    this.discountPolicy = discountPolicy;
+  }
   
 
   @Override
