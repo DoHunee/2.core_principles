@@ -3,6 +3,7 @@ package hello.core.order;
 // import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import hello.core.annotataion.MainDiscountPolicy;
 import hello.core.discount.DiscountPolicy;
 import hello.core.member.Member;
 import hello.core.member.MemberRepository;
@@ -36,7 +37,7 @@ OrderService는 Order를 생성하는 기능만을 제공하고
 
   // 생성자 주입!
   // Lombok의 @RequiredArgsConstructor 가 있으면  final 변수를 보고 여기 부분을 만들어 주는거다!
-  public OrderServiceImpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
+  public OrderServiceImpl(MemberRepository memberRepository, @MainDiscountPolicy DiscountPolicy discountPolicy) {
     // System.out.println("1. OrderServiceImpl.OrderServiceImpl()");
     this.memberRepository = memberRepository;
     this.discountPolicy = discountPolicy;
