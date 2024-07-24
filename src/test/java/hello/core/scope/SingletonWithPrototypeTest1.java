@@ -2,14 +2,15 @@ package hello.core.scope;
 
 import static org.assertj.core.api.Assertions.*;
 
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Scope;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
+import jakarta.inject.Provider;
 
 public class SingletonWithPrototypeTest1 {
 
@@ -44,55 +45,27 @@ public class SingletonWithPrototypeTest1 {
 
     ClientBean clientBean2 = ac.getBean(ClientBean.class);
     int count2 = clientBean2.logic();
-    assertThat(count2).isEqualTo(2); // 여기서 2가 나오는 이유는 ClientBean이 싱글톤이기 때문에 prototypeBean이 재사용되기 때문임
+    assertThat(count2).isEqualTo(1); // 여기서 2가 나오는 이유는 ClientBean이 싱글톤이기 때문에 prototypeBean이 재사용되기 때문임
   }
 
-  @Test
-  void providerTest() {
-    @SuppressWarnings("resource")
-    AnnotationConfigApplicationContext ac = new AnnotationConfigApplicationContext(ClientBean.class,
-        PrototypeBean.class);
 
-    ClientBean clientBean1 = ac.getBean(ClientBean.class);
-    int count1 = clientBean1.logic();
-    assertThat(count1).isEqualTo(1);
-
-    ClientBean clientBean2 = ac.getBean(ClientBean.class);
-    int count2 = clientBean2.logic();
-    assertThat(count2).isEqualTo(1);
-  }
-
+  // ClientBean 클래스 정의 - 싱글톤 스코프
+  @Scope("singleton")
   static class ClientBean {
+    
     @Autowired
-    private ApplicationContext ac;
+    // 이제 objectFactory는 안쓴다!
+    private Provider<PrototypeBean> prototypeBeanProvider;
+    
 
     public int logic() {
-      PrototypeBean prototypeBean = ac.getBean(PrototypeBean.class);
+      PrototypeBean prototypeBean = prototypeBeanProvider.get();
       prototypeBean.addCount();
       int count = prototypeBean.getCount();
       return count;
-    }
+    }  
   }
 
-  // ClientBean 클래스 정의 - 싱글톤 스코프
-  // @Scope("singleton")
-  // static class ClientBean {
-
-  //   private final PrototypeBean prototypeBean;
-
-  //   // ClientBean 생성자 - 프로토타입 빈을 주입 받음
-  //   @Autowired
-  //   public ClientBean(PrototypeBean prototypeBean) {
-  //     this.prototypeBean = prototypeBean;
-  //   }
-
-  //   // 비즈니스 로직 메소드 - 프로토타입 빈의 count를 증가시키고 반환
-  //   public int logic() {
-  //     prototypeBean.addCount();
-  //     int count = prototypeBean.getCount();
-  //     return count;
-  //   }
-  // }
 
   // PrototypeBean 클래스 정의 - 프로토타입 스코프
   @Scope("prototype")
