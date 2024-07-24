@@ -16,11 +16,16 @@ public class BeanLifeCycleTest {
 
   @Configuration
   static class LifeCycleConfig {
-    @Bean
+    
+    // @Bean의 destroyMethod는 기본값이 "inferred" (추론)
+    // destroyMethod =""  =>  이런식으로 공백을 주면 추론 기능이 적용X 
+    @Bean(initMethod = "init",destroyMethod = "close")
     public NetworkClient networkClient() {
       NetworkClient networkClient = new NetworkClient();
       networkClient.setUrl("http://hello-spring.dev"); //가짜로
       return networkClient;
     }
   }
+
+
 }
