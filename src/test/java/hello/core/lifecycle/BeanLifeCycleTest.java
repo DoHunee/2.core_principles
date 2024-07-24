@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
+// import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 public class BeanLifeCycleTest {
@@ -19,7 +20,9 @@ public class BeanLifeCycleTest {
     
     // @Bean의 destroyMethod는 기본값이 "inferred" (추론)
     // destroyMethod =""  =>  이런식으로 공백을 주면 추론 기능이 적용X 
-    @Bean(initMethod = "init",destroyMethod = "close")
+    // @Bean(initMethod = "init",destroyMethod = "close")
+    
+    @Bean
     public NetworkClient networkClient() {
       NetworkClient networkClient = new NetworkClient();
       networkClient.setUrl("http://hello-spring.dev"); //가짜로
