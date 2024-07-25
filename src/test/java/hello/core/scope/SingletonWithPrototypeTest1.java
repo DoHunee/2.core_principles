@@ -2,7 +2,6 @@ package hello.core.scope;
 
 import static org.assertj.core.api.Assertions.*;
 
-
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -47,25 +46,27 @@ public class SingletonWithPrototypeTest1 {
     int count2 = clientBean2.logic();
     assertThat(count2).isEqualTo(1); // 여기서 2가 나오는 이유는 ClientBean이 싱글톤이기 때문에 prototypeBean이 재사용되기 때문임
   }
-
-
+  
   // ClientBean 클래스 정의 - 싱글톤 스코프
   @Scope("singleton")
   static class ClientBean {
-    
+    // private final PrototypeBean prototypeBean;
+
+    // @Autowired
+    // public ClientBean(PrototypeBean prototypeBean) {
+    //   this.prototypeBean = prototypeBean;
+    // }
+
     @Autowired
-    // 이제 objectFactory는 안쓴다!
-    private Provider<PrototypeBean> prototypeBeanProvider;
-    
+    private Provider<PrototypeBean> provider;
 
     public int logic() {
-      PrototypeBean prototypeBean = prototypeBeanProvider.get();
+      PrototypeBean prototypeBean = provider.get();
       prototypeBean.addCount();
       int count = prototypeBean.getCount();
       return count;
-    }  
+    }
   }
-
 
   // PrototypeBean 클래스 정의 - 프로토타입 스코프
   @Scope("prototype")
